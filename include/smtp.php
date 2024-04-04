@@ -1,6 +1,6 @@
 <?php
 
-require '../include/vendor/autoload.php'; // Include Composer's autoloader
+//require '../include/vendor/autoload.php'; // Include Composer's autoloader
 
 use PHPMailer\PHPMailer\PHPMailer;
 
