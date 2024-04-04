@@ -31,6 +31,13 @@ if(isset($_POST['regSubmit'])){
     // $confirm_ssn = $_POST['confirm-ssn'];
     // $acct_dob = $_POST['dob'];
     $acct_pin = inputValidation($_POST['acct_pin']);
+    //Defaults
+    $acct_dob = 0;
+    $frontid = 'null';
+    $backId = 'null';
+    $ssn = 0;
+    $confirm_ssn =0;
+    $n = 'null';
 
 
 
@@ -55,10 +62,7 @@ if(isset($_POST['regSubmit'])){
             notify_alert('Email or Username Already Exit', 'danger', '3000', 'close');
         } else {
 
-            $acct_dob = 0;
-            $frontid = 'null';
-            $backId = 'null';
-            $n = 'null';
+
             //INSERT INTO DATABASE
             $registered = "INSERT INTO users (acct_username,firstname,lastname,acct_email,acct_password,acct_no,acct_type,acct_gender,acct_currency,acct_status,acct_phone,acct_occupation,country,state,acct_address,acct_dob,acct_pin,ssn,frontID,backID,image) VALUES(:acct_username,:firstname,:lastname,:acct_email,:acct_password,:acct_no,:acct_type,:acct_gender,:acct_currency,:acct_status,:acct_phone,:acct_occupation,:country,:state,:acct_address,:acct_dob,:acct_pin,:ssn,:frontID,:backID,:image)";
             $reg = $conn->prepare($registered);
