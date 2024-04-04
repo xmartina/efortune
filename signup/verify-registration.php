@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 require '../include/vendor/autoload.php';
 $pageName  = "Registration";
 require_once './layout/header.php';
