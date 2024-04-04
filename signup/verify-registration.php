@@ -1,4 +1,5 @@
 <?php
+require '../include/vendor/autoload.php'; // Include Composer's autoloader
 $pageName  = "Registration";
 require_once './layout/header.php';
 
