@@ -51,6 +51,69 @@ if(isset($_POST['regSubmit'])){
         if ($stmt->rowCount() > 0) {
             notify_alert('Email or Username Already Exit', 'danger', '3000', 'close');
         } else {
+
+            $acct_dob = 0;
+            $frontid = 'null';
+            $backId = 'null';
+            $n = 'null';
+            //INSERT INTO DATABASE
+            $registered = "INSERT INTO users (acct_username,firstname,lastname,acct_email,acct_password,acct_no,acct_type,acct_gender,acct_currency,acct_status,acct_phone,acct_occupation,country,state,acct_address,acct_dob,acct_pin,ssn,frontID,backID,image) VALUES(:acct_username,:firstname,:lastname,:acct_email,:acct_password,:acct_no,:acct_type,:acct_gender,:acct_currency,:acct_status,:acct_phone,:acct_occupation,:country,:state,:acct_address,:acct_dob,:acct_pin,:ssn,:frontID,:backID,:image)";
+            $reg = $conn->prepare($registered);
+            $reg->execute([
+                'acct_username' => $acct_username,
+                'firstname' => $firstname,
+                'lastname' => $lastname,
+                'acct_email' => $acct_email,
+                'acct_password' => password_hash((string)$acct_password, PASSWORD_BCRYPT),
+                'acct_no' => $acct_no,
+                'acct_type' => $acct_type,
+                'acct_gender' => $acct_gender,
+                'acct_currency' => $acct_currency,
+                'acct_status' => $acct_status,
+                'acct_phone' => $acct_phone,
+                'acct_occupation' => $acct_occupation,
+                'country' => $country,
+                'state' => $state,
+                'acct_address' => $acct_address,
+                'acct_dob' => $acct_dob,
+                'acct_pin' => $acct_pin,
+                'ssn' => $ssn,
+                'frontID' => $frontid,
+                'backID' => $backId,
+                'image'=>$n
+            ]);
+
+
+            if (true) {
+
+                // if ($acct_currency === 'USD') {
+                //     $currency = "$";
+                // } elseif ($acct_currency === 'EUR') {
+                //     $currency = "&euro;";
+                // }
+
+                $fullName = $firstname . " " . $lastname;
+                //EMAIL SENDING
+                $email = $acct_email;
+                $APP_NAME = $pageTitle;
+                $APP_URL = WEB_URL;
+                $message = $sendMail->regMsgUser($fullName,$acct_no,$acct_status,$acct_email,$acct_phone,$acct_type,$acct_pin,$APP_NAME,$APP_URL);
+                //User Email
+                $subject = "Register - $APP_NAME";
+                $email_message->send_mail($email, $message, $subject);
+                // Admin Email
+                $subject = "User Register - $APP_NAME";
+                $email_message->send_mail(WEB_EMAIL, $message, $subject);
+            }
+
+
+            if (true) {
+                toast_alert('success', 'Account Created Successfully, Kindly proceed to login', 'Approved');
+            } else {
+                toast_alert('error', 'Sorry something went wrong');
+            }
+
+            /*
             if (isset($_FILES['profile_pic'])) {
                 $file = $_FILES['profile_pic'];
                 $name = $file['name'];
@@ -143,6 +206,7 @@ if(isset($_POST['regSubmit'])){
                 }
             }
 
+            */
 
         }
     }
